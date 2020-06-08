@@ -12,7 +12,7 @@ local function OpenVGUI()
         draw.RoundedBox(0,0,0,w,h,Color(20,100,200))
     end
 
-    local button = vgui.Create("DButton")
+    local button = vgui.Create("DButton", window)
     button:Center()
     function button:DoClick()
         net.Start("reqWep")

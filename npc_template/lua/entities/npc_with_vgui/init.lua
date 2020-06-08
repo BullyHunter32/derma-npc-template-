@@ -32,6 +32,7 @@ function ENT:Use(activator,caller)
 
 end
 
+util.AddNetworkString("reqWep") 
 util.PrecacheModel("models/weapons/w_rif_ak47.mdl") -- reduces lag when given weapon
 net.Receive("reqWep", function(len,ply)
     ply:Give("weapon_ak472") 

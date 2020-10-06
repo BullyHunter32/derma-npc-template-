@@ -5,36 +5,20 @@ include("shared.lua")
 
  
 function ENT:Initialize()
-
-
-  self:SetModel("models/Barney.mdl")
-    self:SetHullType( HULL_HUMAN ) -- Sets the hull type, used for movement calculations amongst other things.
+    self:SetModel("models/Barney.mdl")
+    self:SetHullType( HULL_HUMAN ) 
     self:SetHullSizeNormal( )
     self:SetNPCState( NPC_STATE_SCRIPT )
-    self:SetSolid(  SOLID_BBOX ) -- This entity uses a solid bounding box for collisions.
-    self:CapabilitiesAdd( CAP_TURN_HEAD ) -- Adds what the NPC is allowed to do ( It cannot move in this case ).
+    self:SetSolid(  SOLID_BBOX ) 
+    self:CapabilitiesAdd( CAP_TURN_HEAD ) 
     self:SetUseType( SIMPLE_USE ) -- Makes the ENT.Use hook only get called once at every use.
     self:DropToFloor()
-
-    local physics = self:GetPhysicsObject()
-    if IsValid(physics) then
-        physics:Wake()
-    end
-
+    self:PhysWake()
 end
 
-util.AddNetworkString("OpenVGUI")
+util.AddNetworkString("Bully's DermaNPC Template")
 
-function ENT:Use(activator,caller)
-
-    net.Start("OpenVGUI")
-    net.Send(activator)
-
+function ENT:Use( ply )
+    net.Start("Bully's DermaNPC Template")
+    net.Send( ply )
 end
-
-util.AddNetworkString("reqWep") 
-util.PrecacheModel("models/weapons/w_rif_ak47.mdl") -- reduces lag when given weapon
-net.Receive("reqWep", function(len,ply)
-    ply:Give("weapon_ak472") 
-   
-end)

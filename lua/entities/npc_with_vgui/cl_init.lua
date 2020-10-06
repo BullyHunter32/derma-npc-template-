@@ -1,23 +1,18 @@
 include("shared.lua")
 
+local frameColor = Color(40,40,40)
+
 local function OpenVGUI()
 
-    if IsValid(window) then return end -- prevents from opening 50 windows in one use
-
-    local window = vgui.Create("DFrame")
-    window:SetSize(300,300)
-    window:MakePopup()
+    -- Create ur UI here.
+    -- Example
+    window = vgui.Create("DFrame")
+    window:SetSize(700,500)
     window:Center()
-    function window:Paint(w,h)
-        draw.RoundedBox(0,0,0,w,h,Color(20,100,200))
+    window.Paint = function(pnl,w,h)
+        surface.SetDrawColor(frameColor)
+        surface.DrawRect(0,0,w,h)
     end
+end 
 
-    local button = vgui.Create("DButton", window)
-    button:Center()
-    function button:DoClick()
-        net.Start("reqWep")
-        net.SendToServer()
-    end
-end
-
-net.Receive("OpenVGUI", OpenVGUI)
+net.Receive("Bully's DermaNPC Template", OpenVGUI) -- gotta have unique names n what not, u know how it is
